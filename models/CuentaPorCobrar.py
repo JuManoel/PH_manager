@@ -6,28 +6,41 @@ class CuentaPorCobrar:
     Proprietario devedor
     int mes
     string detalle
+    float saldo
+    boolean activa
     """
     def __init__(self):
         pass
 
-    def __init__(self, id, valor, pH, devedor,mes, detalle):
+    def __init__(self, id, valor, pH, devedor,mes, detalle, saldo,activa):
+        #para cojer una cuenta que ya existe
         self.id = int(id)
         self.valor = float(valor)
         self.pH = pH
         self.devedor = devedor
         self.mes = int(mes)
         self.detalle = str(detalle)
+        self.saldo = float(saldo)
+        self. activa = activa
 
-    def __init__(self, datosCompletos):
-        self.__int__(datosCompletos[0], datosCompletos[1], datosCompletos[2], datosCompletos[3],datosCompletos[4],
-                     datosCompletos[5])
+
 
     def __int__(self, valor, pH, devedor,mes,detalle):
+        #Para crear una nueva cuenta de cobro
         self.valor = float(valor)
         self.pH = pH
         self.devedor = devedor
         self.mes = int(mes)
         self.detalle = str(detalle)
+        self.saldo = self.valor
+        self. activa = True
 
-    def __init__(self, datosCreacion):
-        self.__init__(datosCreacion[0], datosCreacion[1], datosCreacion[2],datosCreacion[3],datosCreacion[4])
+    def __init__(self, datos):
+        size = len(datos)
+        if(size == 5):
+            self.__init__(datos[0], datos[1], datos[2],datos[3],datos[4])
+            pass
+        if(size == 8):
+            self.__int__(datos[0], datos[1], datos[2], datos[3], datos[4], datos[5], datos[6])
+            pass
+

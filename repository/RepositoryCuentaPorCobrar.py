@@ -1,24 +1,50 @@
 from CreationDataBase import CreationDataBase
+from models.CuentaPorCobrar import CuentaPorCobrar
+from models.CuentaPorCobrarExtra import CuentaPorCobrarExtra
+from RepositoryProprietario import cojerProprietarioId
 
-tipo_Cuenta = ""
+dataBase = CreationDataBase()
+table = "CuentaPorCobrar"
+
 
 def registrarCuentaPorCobrar(datos):
+    dataBase.insert(table,"valor, propriedadHorizontal,devedor,detalle,periodo,saldo,activa,is_extra",
+                    f"{datos[0]},{datos[1]},{datos[2]},'{datos[3]}','{datos[4]}',{datos[5]},1,{datos[6]}")
     pass
 
-def cojerCuentaPorCobrarId(id):
-    pass
+def cojerCuentaPorCobrarId(id, pH):
+    datosCuenta = dataBase.select("*",table,f"Id={id} AND propriedadHorizontal = {pH} AND activa = 1")
+    propriedad = cojerProprietarioId(datosCuenta[3])
+    datosCuenta[3] = propriedad
+    if(datosCuenta[7] == 1):
+        return CuentaPorCobrarExtra(datosCuenta)
+    return CuentaPorCobrar(datosCuenta)
 
-def cojerCuentasPorCobrarCliente(cliente):
-    pass
+def cojerCuentasPorCobrarCliente(cliente, pH):
+    datosCuentas = dataBase.select("*",table,f"devedor = {cliente} AND propriedadHorizontal = {pH} AND saldo != 0"
+                                             f"activa = 1")
+    cuentas = map(conveter,datosCuentas)
+    return cuentas
 
-def cojerCuentasPorCobrarMes(mes):
-    pass
+def cojerCuentasPorCobrarMes(periodo):
+    datosCuentas = dataBase.select("*",table,f"activa = 1 AND saldo != 0 AND periodo = '{periodo}'")
+    cuenta = map(conveter,datosCuentas)
+    return cuenta
 
 def deletar(id):
+    dataBase.deleteDesactiva(table,id)
     pass
 
-def modificar(id, datos):
+def modificar(id, update):
+    dataBase.update(table, update, f"Id={id}")
     pass
 
-def moficarValorTodas(porcentaje):
+def moficarValorTodas(porcentaje,periodo, pH):
+
+    cojerCuentasPorCobrarMes()
     pass
+
+def conveter(datosCuenta):
+    if(datosCuenta[7] == 1):
+        return CuentaPorCobrarExtra(datosCuenta)
+    return CuentaPorCobrar(datosCuenta)

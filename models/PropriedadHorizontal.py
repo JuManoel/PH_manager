@@ -16,15 +16,20 @@ class PropriedadHorizontal:
         self.direccion = str(direccion)
         self.senha = str(senha)
 
-    def __init__(self, datosCompletos):
-        self.__int__(datosCompletos[0],datosCompletos[1],datosCompletos[2],datosCompletos[3])
 
     def __init__(self,nombre,direccion,senha):
         self.nombre = str(nombre)
         self.direccion = str(direccion)
         self.senha = str(senha)
 
-    def __init__(self,datosCreacion):
-        self.__init__(datosCreacion[0],datosCreacion[1],datosCreacion[2])
+    def __init__(self, datos):
+        size = len(datos)
+        if(size == 4):
+            self.__int__(datos[0],datos[1],datos[2],datos[3])
+            pass
+        if(size == 3):
+            self.__init__(datos[0], datos[1], datos[2])
+            pass
+
 
 
