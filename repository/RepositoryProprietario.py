@@ -10,13 +10,14 @@ def registrarProprietario(datos):
                     f"'{datos[0]}','{datos[1]}','{datos[2]}','{datos[3]}',1")
 
 def cojerProprietarioId(id):
-    datosPro = dataBase.select("*",table,f"Id={id} {is_activa}")
+    datosPro = dataBase.select("*",table,f"WHERE Id={id} {is_activa}")
     prop = Proprietario(datosPro)
+    return prop
 
 def cojerProprietarioCedula(cedula):
-    datosPro = dataBase.select("*", table, f"cedula={cedula} {is_activa}")
+    datosPro = dataBase.select("*", table, f"WHERE cedula={cedula} {is_activa}")
     prop = Proprietario(datosPro)
-    pass
+    return prop
 
 def deletar(id):
     dataBase.deleteDesactiva(table,id)
@@ -24,4 +25,4 @@ def deletar(id):
 
 def modificarId(id, update):
     dataBase.update(table, update, f"Id={id}")
-    pass
+    return cojerProprietarioId(id)
