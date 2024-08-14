@@ -8,11 +8,10 @@ def registarPH(datos):
     dataBase.insert(table,"nombre,senha,direccion",f"'{datos[0]}','{datos[1]}','{datos[2]}'")
 
 def login(nome, senha):
-    datosUser = dataBase.select("Id,nombre,direccion,senha",table,f"WHERE nombre = '{nome}'")
-    if(datosUser[3] != senha):
+    datosUser = dataBase.select("Id,senha",table,f"WHERE nombre = '{nome}'")
+    if(datosUser[1] != senha):
         assert False, "Senha incorrecta"
-    user = PropriedadHorizontal(datosUser)
-    return Id
+    return datosUser[1]
 
 def modificar(update,id):
     dataBase.update(table,update,f"Id = {id}")

@@ -12,25 +12,25 @@ class CuentaPorCobrar:
     def __init__(self):
         pass
 
-    def __init__(self, id, valor, pH, devedor,mes, detalle, saldo,activa):
+    def __init__(self, id, valor, pH, devedor,periodo, detalle, saldo,activa):
         #para cojer una cuenta que ya existe
         self.id = int(id)
         self.valor = float(valor)
         self.pH = pH
         self.devedor = devedor
-        self.mes = int(mes)
+        self.periodo = int(periodo)
         self.detalle = str(detalle)
         self.saldo = float(saldo)
         self. activa = activa
 
 
 
-    def __int__(self, valor, pH, devedor,mes,detalle):
+    def __int__(self, valor, pH, devedor,periodo,detalle):
         #Para crear una nueva cuenta de cobro
         self.valor = float(valor)
         self.pH = pH
         self.devedor = devedor
-        self.mes = int(mes)
+        self.periodo = int(periodo)
         self.detalle = str(detalle)
         self.saldo = self.valor
         self. activa = True
